@@ -10,3 +10,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/getallinvoices', [InvoiceController::class, 'getAllInvoices']);
+
+Route::get('/searchinvoice', [InvoiceController::class, 'searchInvoice']);
