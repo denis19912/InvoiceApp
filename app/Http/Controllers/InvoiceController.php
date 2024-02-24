@@ -90,10 +90,10 @@ class InvoiceController extends Controller
         $invoiceData['due_date'] = $request->input('dueDate');
         $invoiceData['number'] = $request->input('number');
         $invoiceData['reference'] = $request->input('reference');
-        $invoiceData['discount'] = $request->input('discount');
+        $invoiceData['discount'] = $request->input('discount') ?? 0;
         $invoiceData['sub_total'] = $request->input('subTotal');
         $invoiceData['total'] = $request->input('grandTotal');
-        $invoiceData['terms_and_conditions'] = $request->input('termsAndConditions');
+        $invoiceData['terms_and_conditions'] = $request->input('termsAndConditions') ?? '';
 
         $invoice = Invoice::create($invoiceData);
 
