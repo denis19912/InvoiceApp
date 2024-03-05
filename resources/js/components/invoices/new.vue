@@ -8,12 +8,10 @@ const router = useRouter();
 let form = ref([]);
 let allCustomers = ref([]);
 let customerId = ref([]);
-let item = ref([]);
 let listCart = ref([]);
 const showModal = ref(false);
 const hideModal = ref(true);
 let listProducts = ref([]);
-let discount = 0;
 
 onMounted(async () => {
     indexForm();
@@ -88,7 +86,7 @@ const onSave = () => {
 
         const formData = new FormData();
 
-        formData.append('invoiceItem', JSON.stringify(listCart.value));
+        formData.append('invoice_item', JSON.stringify(listCart.value));
         formData.append('customerId', customerId.value);
         formData.append('date', form.value.date);
         formData.append('dueDate', form.value.dueDate);

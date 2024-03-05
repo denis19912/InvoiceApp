@@ -27,7 +27,12 @@ const newInvoice = async () => {
     let form = await axios.get("/api/createinvoice");
     router.push('/invoice/new');
 }
+
+const onShow = (id) => {
+    router.push('/invoice/show/' + id);
+}
 </script>
+
 <template>
     <div class="container">
         <div class="invoices">
@@ -72,8 +77,8 @@ const newInvoice = async () => {
                     </div>
                     <div class="relative">
                         <i class="table--search--input--icon fas fa-search "></i>
-                        <input class="table--search--input" type="text" placeholder="Search invoice" v-model="searchInvoice"
-                            @keyup="search()">
+                        <input class="table--search--input" type="text" placeholder="Search invoice"
+                            v-model="searchInvoice" @keyup="search()">
                     </div>
                 </div>
 
@@ -88,9 +93,9 @@ const newInvoice = async () => {
 
                 <!-- item 1 -->
                 <div class="table--items" v-for="item in invoices" :key="item.id" v-if="invoices.length > 0">
-                    <a href="#" class="table--items--transactionId">#{{ item.id }}</a>
+                    <a href="#" @click="onShow(item.id)" class="table--items--transactionId">#{{ item.id }}</a>
                     <p>{{ item.date }}</p>
-                    <p>#{{ item.number }}</p>
+                    <p>#{{ item.id }}</p>
                     <p v-if="item.customer">
                         {{ item.customer.firstname }}
                         {{ item.customer.lastname }}

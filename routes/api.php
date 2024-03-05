@@ -24,4 +24,13 @@ Route::get('/products', [ProductController::class, 'getAllProducts']);
 
 Route::post('/addInvoice', [InvoiceController::class, 'addInvoice']);
 
+Route::get('/showInvoice/{id}', [InvoiceController::class, 'showInvoice']);
+
+Route::get('/editInvoice/{id}', [InvoiceController::class, 'editInvoice']);
+
+Route::get('/deleteInvoiceItems/{id}', [InvoiceController::class, 'deleteInvoiceItems']);
+
+Route::post('/updateInvoice/{id}', [InvoiceController::class, 'updateInvoice']);
+
+Route::get('/deleteInvoice/{id}', [InvoiceController::class, 'deleteInvoice']);
 

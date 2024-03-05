@@ -106,4 +106,67 @@ class InvoiceController extends Controller
             InvoiceItem::create($itemData);
         }
     }
+
+    public function showInvoice($id)
+    {
+        $invoice = Invoice::with('customer', 'invoice_items.product')->find($id);
+
+        return response()->json([
+            'invoice' => $invoice
+        ], 200);
+    }
+
+    public function editInvoice($id)
+    {
+        $invoice = Invoice::with('customer', 'invoice_items.product')->find($id);
+
+        return response()->json([
+            'invoice' => $invoice
+        ], 200);
+    }
+
+    public function deleteInvoiceItems($id)
+    {
+        $invoiceItem = InvoiceItem::findOrFail($id);
+        $invoiceItem->delete();
+        //todo: return success status it's deleted. Check api statuses.
+    }
+
+    public function updateInvoice(Request $request, $id)
+    {
+        $invoice = Invoice::where('id', $id)->first();
+
+        $invoice->sub_total = $request->subtotal;
+        $invoice->total = $request->total;
+        $invoice->customer_id = $request->customer_id;
+        $invoice->number = $request->number;
+        $invoice->date = $request->date;
+        $invoice->due_date = $request->due_date;
+        $invoice->discount = $request->discount;
+        $invoice->reference = $request->reference;
+        $invoice->terms_and_conditions = $request->terms_and_conditions;
+
+        $invoice->update($request->all());
+
+        $invoiceItems = $request->input("invoice_items");
+
+        $invoice->invoice_items()->delete();
+
+        foreach (json_decode($invoiceItems) as $item) {
+            $itemData['product_id'] = $item->product_id;
+            $itemData['invoice_id'] = $invoice->id;
+            $itemData['quantity'] = $item->quantity;
+            $itemData['unit_price'] = $item->unit_price;
+
+            InvoiceItem::create($itemData);
+        }
+    }
+
+
+    public function deleteInvoice($id)
+    {
+        $invoiceItem = Invoice::findOrFail($id);
+        $invoiceItem->delete();
+        //todo: return success status it's deleted. Check api statuses.
+    }
 }
